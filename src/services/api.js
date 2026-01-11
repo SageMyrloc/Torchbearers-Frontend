@@ -22,7 +22,7 @@ api.interceptors.response.use(
             localStorage.removeItem('username');
             localStorage.removeItem('playerId');
             localStorage.removeItem('roles');
-            window.location.href = '/login';
+            window.location.href = '/';
         }
         return Promise.reject(error);
     }
@@ -40,29 +40,46 @@ export const characterAPI = {
     getMyCharacters: () => api.get('/api/characters/my'),
     getCharacter: (id) => api.get(`/api/characters/${id}`),
     createCharacter: (data) => api.post('/api/characters', data),
-    deleteCharacter: (id) => api.delete(`/api/characters/${id}`),
+    updateCharacter: (id, data) => api.put(`/api/characters/${id}`, data),
+    retireCharacter: (id) => api.post(`/api/characters/${id}/retire`),
+    uploadCharacterImage: (id, formData) =>
+        api.post(`/api/characters/${id}/image`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        }),
 };
 
 // DM endpoints
 export const dmAPI = {
     getPendingCharacters: () => api.get('/api/dm/characters/pending'),
-    getAllCharacters: () => api.get('/api/dm/characters/all'),
+    getAllCharacters: () => api.get('/api/dm/characters'),
     approveCharacter: (id) => api.post(`/api/dm/characters/${id}/approve`),
-    rejectCharacter: (id, reason) =>
-        api.post(`/api/dm/characters/${id}/reject`, { reason }),
-    updateCharacterStatus: (id, status) =>
-        api.put(`/api/dm/characters/${id}/status`, { status }),
+    killCharacter: (id) => api.post(`/api/dm/characters/${id}/kill`),
+    activateCharacter: (id) => api.post(`/api/dm/characters/${id}/activate`),
 };
 
-// Admin endpoints
+// Admin endpoints - matches backend AdminController routes
 export const adminAPI = {
-    getUsers: () => api.get('/api/admin/users'),
-    getUser: (id) => api.get(`/api/admin/users/${id}`),
+    // GET /api/admin/players
+    getUsers: () => api.get('/api/admin/players'),
+    // GET /api/admin/roles
     getRoles: () => api.get('/api/admin/roles'),
-    assignRole: (userId, roleId) =>
-        api.post(`/api/admin/users/${userId}/roles/${roleId}`),
-    removeRole: (userId, roleId) =>
-        api.delete(`/api/admin/users/${userId}/roles/${roleId}`),
+    // POST /api/admin/players/{playerId}/roles/{roleId}
+    assignRole: (playerId, roleId) =>
+        api.post(`/api/admin/players/${playerId}/roles/${roleId}`),
+    // DELETE /api/admin/players/{playerId}/roles/{roleId}
+    removeRole: (playerId, roleId) =>
+        api.delete(`/api/admin/players/${playerId}/roles/${roleId}`),
+    // PUT /api/admin/characters/{id}/gold
+    updateCharacterGold: (id, gold) =>
+        api.put(`/api/admin/characters/${id}/gold`, { gold }),
+    // PUT /api/admin/characters/{id}/experience
+    updateCharacterExperience: (id, xp) =>
+        api.put(`/api/admin/characters/${id}/experience`, { xp }),
+    // DELETE /api/admin/characters/{id}
+    deleteCharacter: (id) => api.delete(`/api/admin/characters/${id}`),
+    // PUT /api/admin/players/{id}/slots
+    updatePlayerSlots: (id, maxSlots) =>
+        api.put(`/api/admin/players/${id}/slots`, { maxSlots }),
 };
 
 export default api;

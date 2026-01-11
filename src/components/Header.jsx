@@ -1,14 +1,34 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const Header = () => {
-    const { isAuthenticated, user, login, register, logout } = useAuth();
+    const { isAuthenticated, user, login, register, logout, hasRole } = useAuth();
     const [authDropdownOpen, setAuthDropdownOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('login');
     const [loginData, setLoginData] = useState({ username: '', password: '' });
     const [registerData, setRegisterData] = useState({ username: '', password: '', confirmPassword: '' });
     const [error, setError] = useState('');
+    const [dmDropdownOpen, setDmDropdownOpen] = useState(false);
+    const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
+
+    const dmDropdownRef = useRef(null);
+    const adminDropdownRef = useRef(null);
+
+    // Close dropdowns when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dmDropdownRef.current && !dmDropdownRef.current.contains(event.target)) {
+                setDmDropdownOpen(false);
+            }
+            if (adminDropdownRef.current && !adminDropdownRef.current.contains(event.target)) {
+                setAdminDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
@@ -54,9 +74,79 @@ const Header = () => {
 
                 <div className="nav-links">
                     <Link to="/sessions" className="nav-link">Sessions</Link>
-                    <Link to="/characters" className="nav-link">Characters</Link>
+                    {isAuthenticated && (
+                        <Link to="/characters" className="nav-link">My Characters</Link>
+                    )}
                     <Link to="/map" className="nav-link">Map</Link>
                     <Link to="/rules" className="nav-link">Rules</Link>
+
+                    {/* DM Panel Dropdown */}
+                    {isAuthenticated && (hasRole('DM') || hasRole('Admin')) && (
+                        <div className="nav-dropdown" ref={dmDropdownRef}>
+                            <button
+                                className="nav-link nav-link-dm nav-dropdown-toggle"
+                                onClick={() => {
+                                    setDmDropdownOpen(!dmDropdownOpen);
+                                    setAdminDropdownOpen(false);
+                                }}
+                            >
+                                DM Panel
+                                <span className="dropdown-arrow">{dmDropdownOpen ? '▴' : '▾'}</span>
+                            </button>
+                            {dmDropdownOpen && (
+                                <div className="nav-dropdown-menu nav-dropdown-dm">
+                                    <Link
+                                        to="/dm/characters"
+                                        className="nav-dropdown-item"
+                                        onClick={() => setDmDropdownOpen(false)}
+                                    >
+                                        Pending Approvals
+                                    </Link>
+                                    <Link
+                                        to="/dm/characters?tab=all"
+                                        className="nav-dropdown-item"
+                                        onClick={() => setDmDropdownOpen(false)}
+                                    >
+                                        All Characters
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Admin Dropdown */}
+                    {isAuthenticated && hasRole('Admin') && (
+                        <div className="nav-dropdown" ref={adminDropdownRef}>
+                            <button
+                                className="nav-link nav-link-admin nav-dropdown-toggle"
+                                onClick={() => {
+                                    setAdminDropdownOpen(!adminDropdownOpen);
+                                    setDmDropdownOpen(false);
+                                }}
+                            >
+                                Admin
+                                <span className="dropdown-arrow">{adminDropdownOpen ? '▴' : '▾'}</span>
+                            </button>
+                            {adminDropdownOpen && (
+                                <div className="nav-dropdown-menu nav-dropdown-admin">
+                                    <Link
+                                        to="/admin"
+                                        className="nav-dropdown-item"
+                                        onClick={() => setAdminDropdownOpen(false)}
+                                    >
+                                        Users & Roles
+                                    </Link>
+                                    <Link
+                                        to="/admin/characters"
+                                        className="nav-dropdown-item"
+                                        onClick={() => setAdminDropdownOpen(false)}
+                                    >
+                                        Character Management
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 <div className="auth-section">

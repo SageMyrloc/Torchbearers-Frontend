@@ -1,0 +1,220 @@
+.my-characters-page {
+    min-height: calc(100vh - 80px);
+    padding: 2rem;
+}
+
+.my-characters-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+.my-characters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+.header-title {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+}
+
+.header-title h1 {
+    font-family: 'Georgia', serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin: 0;
+}
+
+.slot-usage {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    color: var(--text-muted);
+}
+
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid var(--border-secondary);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Error State */
+.error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    color: #ff6b6b;
+    gap: 1rem;
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    text-align: center;
+    padding: 3rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-secondary);
+    border-radius: 8px;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.empty-state h2 {
+    font-family: 'Georgia', serif;
+    font-size: 1.75rem;
+    color: var(--text-light);
+    margin: 0 0 0.75rem;
+}
+
+.empty-state p {
+    color: var(--text-muted);
+    margin: 0 0 1.5rem;
+    font-size: 1rem;
+}
+
+/* Characters Grid */
+.characters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Character Card */
+.character-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-secondary);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.character-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.character-card-image {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem 1.5rem 1rem;
+    background-color: var(--bg-dark);
+}
+
+.character-info {
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.character-name {
+    font-family: 'Georgia', serif;
+    font-size: 1.25rem;
+    color: var(--text-light);
+    margin: 0;
+}
+
+/* Status Badges */
+.status-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-yellow {
+    background-color: rgba(234, 179, 8, 0.2);
+    color: #eab308;
+}
+
+.status-green {
+    background-color: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.status-gray {
+    background-color: rgba(156, 163, 175, 0.2);
+    color: #9ca3af;
+}
+
+.status-red {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .my-characters-page {
+        padding: 1rem;
+    }
+
+    .my-characters-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .header-title {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .header-title h1 {
+        font-size: 2rem;
+    }
+
+    .characters-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .characters-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .character-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}

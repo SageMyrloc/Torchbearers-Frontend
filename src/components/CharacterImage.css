@@ -1,0 +1,70 @@
+.character-image {
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.character-image-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.character-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-card) 100%);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.character-image-letter {
+    color: var(--gold);
+    font-family: 'Georgia', serif;
+    font-weight: 600;
+}
+
+/* Size Variants */
+.character-image-small {
+    width: 48px;
+    height: 48px;
+}
+
+.character-image-small .character-image-letter {
+    font-size: 1.25rem;
+}
+
+.character-image-small .character-image-placeholder {
+    border-width: 2px;
+}
+
+.character-image-medium {
+    width: 96px;
+    height: 96px;
+}
+
+.character-image-medium .character-image-letter {
+    font-size: 2.5rem;
+}
+
+.character-image-medium .character-image-placeholder {
+    border-width: 2px;
+}
+
+.character-image-large {
+    width: 200px;
+    height: 200px;
+}
+
+.character-image-large .character-image-letter {
+    font-size: 5rem;
+}
+
+.character-image-large .character-image-placeholder {
+    border-width: 3px;
+}

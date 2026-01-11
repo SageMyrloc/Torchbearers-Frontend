@@ -446,9 +446,19 @@ body {
     }
 
     .nav-link,
-    .dropdown-toggle {
+    .dropdown-toggle,
+    .nav-dropdown-toggle {
         padding: 0.4rem 0.6rem;
         font-size: 0.8rem;
+    }
+
+    .nav-dropdown-menu {
+        min-width: 160px;
+    }
+
+    .nav-dropdown-item {
+        padding: 0.6rem 0.85rem;
+        font-size: 0.85rem;
     }
 
     .home-icon {
@@ -608,6 +618,99 @@ body {
     color: var(--gold);
 }
 
+/* Nav Dropdowns */
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.dropdown-arrow {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-secondary);
+    border-radius: 6px;
+    min-width: 180px;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.nav-dropdown-dm {
+    border-color: rgba(34, 197, 94, 0.4);
+}
+
+.nav-dropdown-admin {
+    border-color: rgba(210, 183, 109, 0.4);
+}
+
+.nav-dropdown-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+.nav-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.nav-dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-dropdown-dm .nav-dropdown-item:hover {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #4ade80;
+}
+
+.nav-dropdown-admin .nav-dropdown-item:hover {
+    background-color: rgba(210, 183, 109, 0.1);
+    color: var(--gold-hover);
+}
+
+.nav-link-dm {
+    color: #22c55e !important;
+    font-weight: 600;
+}
+
+.nav-link-dm:hover {
+    color: #4ade80 !important;
+    background-color: rgba(34, 197, 94, 0.15) !important;
+}
+
+.nav-link-admin {
+    color: var(--gold) !important;
+    font-weight: 600;
+}
+
+.nav-link-admin:hover {
+    color: var(--gold-hover) !important;
+    background-color: rgba(210, 183, 109, 0.15) !important;
+}
+
+
 @media (max-width: 991px) {
     .sessions-grid {
         grid-template-columns: 1fr 1fr;
@@ -623,3 +726,4 @@ body {
         font-size: 2.5rem;
     }
 }
+

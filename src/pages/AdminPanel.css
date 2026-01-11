@@ -1,0 +1,520 @@
+/* Admin Panel Styles */
+.admin-panel {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.admin-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--gold);
+}
+
+.admin-title {
+    font-family: 'Georgia', serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+}
+
+.admin-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* Admin Navigation */
+.admin-nav {
+    display: flex;
+    gap: 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+.admin-nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.admin-nav-link:hover {
+    color: var(--text-light);
+}
+
+.admin-nav-link.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+}
+
+/* Loading State */
+.admin-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    color: var(--text-muted);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-secondary);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Messages */
+.admin-message {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.admin-error {
+    background-color: rgba(255, 107, 107, 0.1);
+    border: 1px solid #ff6b6b;
+    color: #ff6b6b;
+}
+
+.admin-success {
+    background-color: rgba(107, 255, 107, 0.1);
+    border: 1px solid #6bff6b;
+    color: #6bff6b;
+}
+
+/* Sections */
+.admin-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+/* Players Table */
+.players-table-container {
+    overflow-x: auto;
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    border: 1px solid var(--border-secondary);
+}
+
+.players-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .players-table th,
+    .players-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-secondary);
+    }
+
+    .players-table th {
+        background-color: rgba(0, 0, 0, 0.3);
+        color: var(--gold);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+    .players-table tbody tr:hover {
+        background-color: rgba(210, 183, 109, 0.05);
+    }
+
+    .players-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+.player-id {
+    color: var(--text-muted);
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+.player-username {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.player-roles {
+    min-width: 150px;
+}
+
+.role-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.role-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.role-player {
+    background-color: rgba(76, 175, 80, 0.2);
+    color: #81c784;
+    border: 1px solid #81c784;
+}
+
+.role-dm {
+    background-color: rgba(33, 150, 243, 0.2);
+    color: #64b5f6;
+    border: 1px solid #64b5f6;
+}
+
+.role-admin {
+    background-color: rgba(210, 183, 109, 0.2);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+}
+
+.no-roles {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+/* Action Buttons */
+.player-actions {
+    min-width: 300px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-add {
+    background-color: rgba(76, 175, 80, 0.2);
+    color: #81c784;
+    border: 1px solid #81c784;
+}
+
+    .btn-add:hover {
+        background-color: rgba(76, 175, 80, 0.4);
+    }
+
+.btn-remove {
+    background-color: rgba(244, 67, 54, 0.2);
+    color: #e57373;
+    border: 1px solid #e57373;
+}
+
+    .btn-remove:hover {
+        background-color: rgba(244, 67, 54, 0.4);
+    }
+
+/* Roles Grid */
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.role-card {
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-secondary);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .role-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .role-card.role-player {
+        border-color: #81c784;
+    }
+
+    .role-card.role-dm {
+        border-color: #64b5f6;
+    }
+
+    .role-card.role-admin {
+        border-color: var(--gold);
+    }
+
+.role-name {
+    font-family: 'Georgia', serif;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.role-id {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+}
+
+.role-count {
+    color: var(--gold);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    border: 1px dashed var(--border-secondary);
+}
+
+/* Access Denied */
+.access-denied {
+    text-align: center;
+    padding: 4rem 2rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+    .access-denied h2 {
+        color: #ff6b6b;
+        font-family: 'Georgia', serif;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .access-denied p {
+        color: var(--text-muted);
+    }
+
+/* Loading Container */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: var(--text-muted);
+}
+
+/* Editable Values */
+.editable-value {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    color: var(--gold);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 40px;
+    text-align: center;
+}
+
+.editable-value:hover {
+    border-color: var(--gold);
+    background-color: rgba(210, 183, 109, 0.1);
+}
+
+.player-slots,
+.player-character-count {
+    text-align: center;
+    width: 100px;
+}
+
+.player-character-count {
+    color: var(--text-muted);
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.modal-content {
+    background-color: var(--bg-card);
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    padding: 1.5rem;
+}
+
+.modal-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.25rem;
+    color: var(--gold);
+    margin: 0 0 0.5rem;
+}
+
+.modal-subtitle {
+    color: var(--text-muted);
+    margin: 0 0 1.5rem;
+    font-size: 0.9rem;
+}
+
+.modal-content .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.modal-content .form-group label {
+    display: block;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.modal-content .form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--bg-black);
+    border: 1px solid var(--border-secondary);
+    border-radius: 4px;
+    color: var(--text-light);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+}
+
+.modal-content .form-group input:focus {
+    outline: none;
+    border-color: var(--gold);
+}
+
+.input-hint {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--gold-dark);
+    color: var(--bg-black);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--gold);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--gold-dark);
+    color: var(--gold-dark);
+}
+
+.btn-outline:hover:not(:disabled) {
+    background-color: var(--gold-dark);
+    color: var(--bg-black);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-panel {
+        padding: 1rem;
+    }
+
+    .admin-title {
+        font-size: 2rem;
+    }
+
+    .players-table th,
+    .players-table td {
+        padding: 0.75rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .player-actions {
+        min-width: auto;
+    }
+
+    .roles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-buttons {
+        flex-direction: column-reverse;
+    }
+
+    .modal-buttons .btn {
+        width: 100%;
+    }
+
+    .player-slots,
+    .player-character-count {
+        width: auto;
+    }
+}
