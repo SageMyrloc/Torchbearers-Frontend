@@ -1,0 +1,204 @@
+.complete-session-modal {
+    max-width: 500px;
+}
+
+.complete-session-modal .modal-body {
+    padding: 1.5rem;
+}
+
+/* Session Info */
+.complete-session-modal .session-info {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+.complete-session-modal .session-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.25rem;
+    color: var(--gold);
+    margin: 0;
+}
+
+/* Attendees Section */
+.complete-session-modal .attendees-section {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+.complete-session-modal .attendees-section h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 0.75rem;
+}
+
+.complete-session-modal .no-attendees {
+    color: var(--text-muted);
+    font-style: italic;
+    margin: 0;
+    padding: 0.75rem;
+    background-color: var(--bg-dark);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.complete-session-modal .attendees-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.complete-session-modal .attendee-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--bg-dark);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.complete-session-modal .attendee-item:last-child {
+    margin-bottom: 0;
+}
+
+.complete-session-modal .character-name {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.complete-session-modal .player-name {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Rewards Section */
+.complete-session-modal .rewards-section h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 0.5rem;
+}
+
+.complete-session-modal .rewards-info {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0 0 1rem;
+    padding: 0.5rem 0.75rem;
+    background-color: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 4px;
+}
+
+.complete-session-modal .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.complete-session-modal .form-group {
+    margin-bottom: 0;
+}
+
+.complete-session-modal .form-group label {
+    display: block;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.complete-session-modal .form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--bg-black);
+    border: 1px solid var(--border-secondary);
+    border-radius: 4px;
+    color: var(--text-light);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+}
+
+.complete-session-modal .form-group input:focus {
+    outline: none;
+    border-color: var(--gold);
+}
+
+.complete-session-modal .form-group input::placeholder {
+    color: var(--text-muted);
+}
+
+.complete-session-modal .form-group input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.complete-session-modal .validation-error {
+    display: block;
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.complete-session-modal .server-error {
+    background-color: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    border-radius: 4px;
+    color: #ff6b6b;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+
+.complete-session-modal .modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.complete-session-modal .modal-buttons .btn {
+    min-width: 120px;
+}
+
+.complete-session-modal .btn-success {
+    background-color: #22c55e;
+    color: white;
+}
+
+.complete-session-modal .btn-success:hover:not(:disabled) {
+    background-color: #16a34a;
+}
+
+@media (max-width: 480px) {
+    .complete-session-modal {
+        max-width: none;
+    }
+
+    .complete-session-modal .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .complete-session-modal .attendee-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+
+    .complete-session-modal .modal-buttons {
+        flex-direction: column-reverse;
+    }
+
+    .complete-session-modal .modal-buttons .btn {
+        width: 100%;
+    }
+}

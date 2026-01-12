@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const Header = () => {
     const { isAuthenticated, user, login, register, logout, hasRole } = useAuth();
+    const location = useLocation();
     const [authDropdownOpen, setAuthDropdownOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('login');
     const [loginData, setLoginData] = useState({ username: '', password: '' });
@@ -65,6 +66,20 @@ const Header = () => {
         setRegisterData({ username: '', password: '', confirmPassword: '' });
     };
 
+    const isActive = (path) => {
+        if (path === '/sessions') {
+            return location.pathname === '/sessions' || location.pathname.startsWith('/sessions/');
+        }
+        if (path === '/characters') {
+            return location.pathname === '/characters' || location.pathname.startsWith('/characters/');
+        }
+        return location.pathname === path;
+    };
+
+    const isDropdownActive = (paths) => {
+        return paths.some(path => location.pathname.startsWith(path));
+    };
+
     return (
         <header className="navbar">
             <nav className="navbar-container">
@@ -73,18 +88,30 @@ const Header = () => {
                 </Link>
 
                 <div className="nav-links">
-                    <Link to="/sessions" className="nav-link">Sessions</Link>
                     {isAuthenticated && (
-                        <Link to="/characters" className="nav-link">My Characters</Link>
+                        <>
+                            <Link
+                                to="/sessions"
+                                className={`nav-link ${isActive('/sessions') ? 'active' : ''}`}
+                            >
+                                Sessions
+                            </Link>
+                            <Link
+                                to="/characters"
+                                className={`nav-link ${isActive('/characters') ? 'active' : ''}`}
+                            >
+                                My Characters
+                            </Link>
+                        </>
                     )}
-                    <Link to="/map" className="nav-link">Map</Link>
-                    <Link to="/rules" className="nav-link">Rules</Link>
+                    <Link to="/map" className={`nav-link ${isActive('/map') ? 'active' : ''}`}>Map</Link>
+                    <Link to="/rules" className={`nav-link ${isActive('/rules') ? 'active' : ''}`}>Rules</Link>
 
                     {/* DM Panel Dropdown */}
                     {isAuthenticated && (hasRole('DM') || hasRole('Admin')) && (
                         <div className="nav-dropdown" ref={dmDropdownRef}>
                             <button
-                                className="nav-link nav-link-dm nav-dropdown-toggle"
+                                className={`nav-link nav-link-dm nav-dropdown-toggle ${isDropdownActive(['/dm/']) ? 'active' : ''}`}
                                 onClick={() => {
                                     setDmDropdownOpen(!dmDropdownOpen);
                                     setAdminDropdownOpen(false);
@@ -96,15 +123,22 @@ const Header = () => {
                             {dmDropdownOpen && (
                                 <div className="nav-dropdown-menu nav-dropdown-dm">
                                     <Link
+                                        to="/dm/sessions"
+                                        className={`nav-dropdown-item ${location.pathname === '/dm/sessions' ? 'active' : ''}`}
+                                        onClick={() => setDmDropdownOpen(false)}
+                                    >
+                                        Manage Sessions
+                                    </Link>
+                                    <Link
                                         to="/dm/characters"
-                                        className="nav-dropdown-item"
+                                        className={`nav-dropdown-item ${location.pathname === '/dm/characters' && !location.search.includes('tab=all') ? 'active' : ''}`}
                                         onClick={() => setDmDropdownOpen(false)}
                                     >
                                         Pending Approvals
                                     </Link>
                                     <Link
                                         to="/dm/characters?tab=all"
-                                        className="nav-dropdown-item"
+                                        className={`nav-dropdown-item ${location.pathname === '/dm/characters' && location.search.includes('tab=all') ? 'active' : ''}`}
                                         onClick={() => setDmDropdownOpen(false)}
                                     >
                                         All Characters
@@ -118,7 +152,7 @@ const Header = () => {
                     {isAuthenticated && hasRole('Admin') && (
                         <div className="nav-dropdown" ref={adminDropdownRef}>
                             <button
-                                className="nav-link nav-link-admin nav-dropdown-toggle"
+                                className={`nav-link nav-link-admin nav-dropdown-toggle ${isDropdownActive(['/admin']) ? 'active' : ''}`}
                                 onClick={() => {
                                     setAdminDropdownOpen(!adminDropdownOpen);
                                     setDmDropdownOpen(false);
@@ -131,14 +165,14 @@ const Header = () => {
                                 <div className="nav-dropdown-menu nav-dropdown-admin">
                                     <Link
                                         to="/admin"
-                                        className="nav-dropdown-item"
+                                        className={`nav-dropdown-item ${location.pathname === '/admin' ? 'active' : ''}`}
                                         onClick={() => setAdminDropdownOpen(false)}
                                     >
                                         Users & Roles
                                     </Link>
                                     <Link
                                         to="/admin/characters"
-                                        className="nav-dropdown-item"
+                                        className={`nav-dropdown-item ${location.pathname === '/admin/characters' ? 'active' : ''}`}
                                         onClick={() => setAdminDropdownOpen(false)}
                                     >
                                         Character Management

@@ -42,10 +42,7 @@ export const characterAPI = {
     createCharacter: (data) => api.post('/api/characters', data),
     updateCharacter: (id, data) => api.put(`/api/characters/${id}`, data),
     retireCharacter: (id) => api.post(`/api/characters/${id}/retire`),
-    uploadCharacterImage: (id, formData) =>
-        api.post(`/api/characters/${id}/image`, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-        }),
+    uploadCharacterImage: (id, formData) => api.post(`/api/characters/${id}/image`, formData),
 };
 
 // DM endpoints
@@ -80,6 +77,28 @@ export const adminAPI = {
     // PUT /api/admin/players/{id}/slots
     updatePlayerSlots: (id, maxSlots) =>
         api.put(`/api/admin/players/${id}/slots`, { maxSlots }),
+};
+
+// Session endpoints (player-facing)
+export const sessionAPI = {
+    getUpcomingSessions: () => api.get('/api/sessions'),
+    getSession: (id) => api.get(`/api/sessions/${id}`),
+    getMySessions: () => api.get('/api/sessions/my'),
+    signUp: (sessionId, characterId) =>
+        api.post(`/api/sessions/${sessionId}/signup`, { characterId }),
+    withdraw: (sessionId, characterId) =>
+        api.delete(`/api/sessions/${sessionId}/signup/${characterId}`),
+};
+
+// DM Session endpoints
+export const dmSessionAPI = {
+    getMySessions: () => api.get('/api/dm/sessions'),
+    createSession: (data) => api.post('/api/dm/sessions', data),
+    updateSession: (id, data) => api.put(`/api/dm/sessions/${id}`, data),
+    startSession: (id) => api.post(`/api/dm/sessions/${id}/start`),
+    completeSession: (id, rewards) =>
+        api.post(`/api/dm/sessions/${id}/complete`, rewards),
+    cancelSession: (id) => api.post(`/api/dm/sessions/${id}/cancel`),
 };
 
 export default api;

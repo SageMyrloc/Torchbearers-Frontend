@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { characterAPI } from '../services/api';
 import CharacterImage from '../components/CharacterImage';
+import CreateCharacterModal from '../components/CreateCharacterModal';
 import './MyCharacters.css';
 
 const STATUS_CONFIG = {
@@ -16,6 +17,7 @@ function MyCharacters() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [slotInfo, setSlotInfo] = useState({ used: 0, max: 3 });
+    const [showCreateModal, setShowCreateModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -46,7 +48,7 @@ function MyCharacters() {
     };
 
     const handleCreateCharacter = () => {
-        navigate('/characters/create');
+        setShowCreateModal(true);
     };
 
     const isAtSlotLimit = slotInfo.used >= slotInfo.max;
@@ -141,6 +143,11 @@ function MyCharacters() {
                     </div>
                 )}
             </div>
+            <CreateCharacterModal
+                isOpen={showCreateModal}
+                onClose={() => setShowCreateModal(false)}
+                onSuccess={fetchCharacters}
+            />
         </div>
     );
 }

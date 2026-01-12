@@ -1,0 +1,142 @@
+.session-form-modal {
+    max-width: 500px;
+}
+
+.session-form-modal .modal-form {
+    padding: 1.5rem;
+}
+
+.session-form-modal .form-group {
+    margin-bottom: 1.25rem;
+    position: relative;
+}
+
+.session-form-modal .form-group label {
+    display: block;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.session-form-modal .required {
+    color: #ff6b6b;
+}
+
+.session-form-modal .form-group input,
+.session-form-modal .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--bg-black);
+    border: 1px solid var(--border-secondary);
+    border-radius: 4px;
+    color: var(--text-light);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+}
+
+.session-form-modal .form-group input:focus,
+.session-form-modal .form-group textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+}
+
+.session-form-modal .form-group input::placeholder,
+.session-form-modal .form-group textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.session-form-modal .form-group input:disabled,
+.session-form-modal .form-group textarea:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.session-form-modal .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.session-form-modal .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.session-form-modal .char-count {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.session-form-modal .field-hint {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.session-form-modal .validation-error {
+    display: block;
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.session-form-modal .server-error {
+    background-color: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    border-radius: 4px;
+    color: #ff6b6b;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+
+.session-form-modal .modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.session-form-modal .modal-buttons .btn {
+    min-width: 100px;
+}
+
+/* DateTime input styling for dark theme */
+.session-form-modal input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+    cursor: pointer;
+}
+
+/* Number input - hide spinners for cleaner look */
+.session-form-modal input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.session-form-modal input[type="number"]::-webkit-outer-spin-button,
+.session-form-modal input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@media (max-width: 480px) {
+    .session-form-modal {
+        max-width: none;
+    }
+
+    .session-form-modal .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .session-form-modal .modal-buttons {
+        flex-direction: column-reverse;
+    }
+
+    .session-form-modal .modal-buttons .btn {
+        width: 100%;
+    }
+}

@@ -84,7 +84,7 @@ function CharacterDetail() {
             setUploadError('');
 
             const formData = new FormData();
-            formData.append('image', selectedFile);
+            formData.append('file', selectedFile);
 
             await characterAPI.uploadCharacterImage(id, formData);
 

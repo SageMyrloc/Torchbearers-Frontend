@@ -107,6 +107,11 @@ body {
     background-color: rgba(210, 183, 109, 0.1);
 }
 
+.nav-link.active {
+    color: var(--gold);
+    background-color: rgba(210, 183, 109, 0.15);
+}
+
 /* Navbar Title */
 .navbar-title {
     flex: 1;
@@ -680,6 +685,21 @@ body {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
+.nav-dropdown-item.active {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--gold);
+}
+
+.nav-dropdown-dm .nav-dropdown-item.active {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+}
+
+.nav-dropdown-admin .nav-dropdown-item.active {
+    background-color: rgba(210, 183, 109, 0.15);
+    color: var(--gold);
+}
+
 .nav-dropdown-dm .nav-dropdown-item:hover {
     background-color: rgba(34, 197, 94, 0.1);
     color: #4ade80;
@@ -700,6 +720,10 @@ body {
     background-color: rgba(34, 197, 94, 0.15) !important;
 }
 
+.nav-link-dm.active {
+    background-color: rgba(34, 197, 94, 0.2) !important;
+}
+
 .nav-link-admin {
     color: var(--gold) !important;
     font-weight: 600;
@@ -710,6 +734,9 @@ body {
     background-color: rgba(210, 183, 109, 0.15) !important;
 }
 
+.nav-link-admin.active {
+    background-color: rgba(210, 183, 109, 0.2) !important;
+}
 
 @media (max-width: 991px) {
     .sessions-grid {

@@ -1,0 +1,175 @@
+.signup-modal {
+    max-width: 500px;
+}
+
+.signup-modal .modal-body {
+    padding: 1.5rem;
+}
+
+.signup-modal .modal-subtitle {
+    color: var(--text-muted);
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+}
+
+/* Loading State */
+.signup-modal .modal-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    gap: 0.75rem;
+}
+
+.signup-modal .modal-loading p {
+    margin: 0;
+}
+
+.signup-modal .loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--border-secondary);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* No Characters State */
+.signup-modal .no-characters {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--bg-dark);
+    border-radius: 4px;
+}
+
+.signup-modal .no-characters p {
+    color: var(--text-muted);
+    margin: 0 0 1.5rem;
+    line-height: 1.5;
+}
+
+/* Character List */
+.signup-modal .character-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.signup-modal .character-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--bg-dark);
+    border: 2px solid var(--border-secondary);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.signup-modal .character-option:hover {
+    border-color: var(--gold);
+    background-color: rgba(212, 175, 55, 0.05);
+}
+
+.signup-modal .character-option.selected {
+    border-color: var(--gold);
+    background-color: rgba(212, 175, 55, 0.1);
+}
+
+.signup-modal .character-radio {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-secondary);
+    border-radius: 50%;
+    background-color: var(--bg-black);
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.signup-modal .character-radio:checked {
+    border-color: var(--gold);
+    background-color: var(--gold);
+}
+
+.signup-modal .character-radio:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--bg-black);
+}
+
+.signup-modal .character-radio:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.signup-modal .character-thumbnail {
+    flex-shrink: 0;
+}
+
+.signup-modal .character-option-name {
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+/* Server Error */
+.signup-modal .server-error {
+    background-color: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    border-radius: 4px;
+    color: #ff6b6b;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+/* Modal Buttons */
+.signup-modal .modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.signup-modal .modal-buttons .btn {
+    min-width: 100px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .signup-modal {
+        max-width: none;
+    }
+
+    .signup-modal .modal-buttons {
+        flex-direction: column-reverse;
+    }
+
+    .signup-modal .modal-buttons .btn {
+        width: 100%;
+    }
+
+    .signup-modal .character-option {
+        padding: 0.625rem 0.75rem;
+    }
+}

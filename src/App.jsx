@@ -7,6 +7,10 @@ import MyCharacters from './pages/MyCharacters';
 import CharacterDetail from './pages/CharacterDetail';
 import DMCharacters from './pages/DMCharacters';
 import AdminCharacters from './pages/AdminCharacters';
+import Sessions from './pages/Sessions';
+import SessionDetail from './pages/SessionDetail';
+import MySessions from './pages/MySessions';
+import DMSessions from './pages/DMSessions';
 import './App.css';
 
 function App() {
@@ -16,6 +20,30 @@ function App() {
             <main className="main-content">
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route
+                        path="/sessions"
+                        element={
+                            <ProtectedRoute>
+                                <Sessions />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/sessions/my"
+                        element={
+                            <ProtectedRoute>
+                                <MySessions />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/sessions/:id"
+                        element={
+                            <ProtectedRoute>
+                                <SessionDetail />
+                            </ProtectedRoute>
+                        }
+                    />
                     <Route
                         path="/admin"
                         element={
@@ -45,6 +73,14 @@ function App() {
                         element={
                             <ProtectedRoute requiredRoles={['DM', 'Admin']}>
                                 <DMCharacters />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/dm/sessions"
+                        element={
+                            <ProtectedRoute requiredRoles={['DM', 'Admin']}>
+                                <DMSessions />
                             </ProtectedRoute>
                         }
                     />
