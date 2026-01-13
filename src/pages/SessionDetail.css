@@ -255,29 +255,56 @@
 }
 
 .attendees-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    background: var(--card-bg, #1a1a1a);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.attendees-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted, #888);
+    letter-spacing: 0.05em;
 }
 
 .attendee-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--bg-dark);
-    border: 1px solid var(--border-secondary);
-    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
     padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center;
+}
+
+.attendee-item:last-child {
+    border-bottom: none;
 }
 
 .attendee-character {
-    color: var(--text-light);
+    color: var(--gold, #d4af37);
     font-weight: 500;
 }
 
 .attendee-player {
-    color: var(--text-muted);
-    font-size: 0.9rem;
+    color: var(--text-secondary, #aaa);
+}
+
+.attendee-actions {
+    min-width: 80px;
+    text-align: right;
+}
+
+.header-actions {
+    min-width: 80px;
+    text-align: right;
+}
+
+.btn-small {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
 }
 
 /* Modal Styles */

@@ -21,7 +21,12 @@ export const AuthProvider = ({ children }) => {
 
         try {
             const response = await authAPI.getMe();
-            setUser(response.data);
+            setUser({
+                username: response.data.username,
+                playerId: response.data.id,
+                roles: response.data.roles,
+                discordId: response.data.discordId
+            });
             setIsAuthenticated(true);
         } catch (error) {
             console.error('Auth check failed:', error);

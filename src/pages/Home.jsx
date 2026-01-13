@@ -1,13 +1,41 @@
-import { useAuth } from '../contexts/AuthContext';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { sessionAPI } from '../services/api';
 
 const Home = () => {
+    const navigate = useNavigate();
+    const [upcomingSessions, setUpcomingSessions] = useState([]);
+    const [loadingSessions, setLoadingSessions] = useState(true);
+
+    useEffect(() => {
+        const fetchUpcomingSessions = async () => {
+            try {
+                const response = await sessionAPI.getUpcomingSessions();
+                setUpcomingSessions(response.data.slice(0, 3));
+            } catch (err) {
+                console.error('Failed to load upcoming sessions:', err);
+            } finally {
+                setLoadingSessions(false);
+            }
+        };
+        fetchUpcomingSessions();
+    }, []);
+
+    const formatSessionDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+        });
+    };
+
     return (
         <div className="container">
             <section className="hero-section">
                 <div className="hero-content">
-                    <div className="hero-icon" aria-hidden>
-                        ??
-                    </div>
                     <h1 className="hero-title">Torch Bearers</h1>
                     <p className="hero-subtitle">A westmarch style game set in a world of mist and soul lanterns</p>
 
@@ -25,53 +53,48 @@ const Home = () => {
                 <h2 className="sessions-title">Upcoming Adventures</h2>
                 <p className="sessions-subtitle">Gather your party, light your torches</p>
 
-                <div className="sessions-grid">
-                    <article className="session-card session-next">
-                        <div className="small-label">Next Session</div>
-                        <h3 className="session-title">The Mist Walker's Path</h3>
-                        <p className="session-desc">
-                            The party ventures deeper into the Shrouded Vale, following rumors of an ancient soul lantern that may hold the key to lifting the curse.
-                        </p>
+                {loadingSessions ? (
+                    <div className="loading-state">Loading adventures...</div>
+                ) : upcomingSessions.length === 0 ? (
+                    <div className="empty-state">
+                        <p>No upcoming adventures scheduled</p>
+                    </div>
+                ) : (
+                    <div className="sessions-grid">
+                        {upcomingSessions.map((session, index) => (
+                            <article
+                                key={session.id}
+                                className={`session-card ${index === 0 ? 'session-next' : ''}`}
+                                onClick={() => navigate(`/sessions/${session.id}`)}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                {index === 0 && <div className="small-label">Next Session</div>}
+                                <h3 className="session-title">{session.title}</h3>
+                                {session.description && (
+                                    <p className="session-desc">{session.description}</p>
+                                )}
 
-                        <div className="session-divider" />
+                                <div className="session-divider" />
 
-                        <ul className="session-meta">
-                            <li><span className="meta-icon">??</span> Saturday, January 11th - 7:00 PM</li>
-                            <li><span className="meta-icon">??</span> The Withered Oak Inn</li>
-                            <li><span className="meta-icon">??</span> Kira, Thorin, Sera, Malik</li>
-                        </ul>
-                    </article>
-
-                    <article className="session-card">
-                        <h3 className="session-title">Embers of the Fallen</h3>
-                        <p className="session-desc">
-                            A merchant caravan has gone missing near the old watchtower. Strange lights have been seen dancing in the ruins at night.
-                        </p>
-
-                        <div className="session-divider" />
-
-                        <ul className="session-meta">
-                            <li><span className="meta-icon">??</span> Saturday, January 25th - 7:00 PM</li>
-                            <li><span className="meta-icon">??</span> The Ashen Ruins</li>
-                            <li><span className="meta-icon">??</span> Kira, Thorin, Lyra, Bram</li>
-                        </ul>
-                    </article>
-
-                    <article className="session-card">
-                        <h3 className="session-title">Echoes in the Mire</h3>
-                        <p className="session-desc">
-                            Faint songs lure the unwary into the bog. The party must decide whether to follow the music or hunt for those who vanished.
-                        </p>
-
-                        <div className="session-divider" />
-
-                        <ul className="session-meta">
-                            <li><span className="meta-icon">??</span> Saturday, February 8th - 7:00 PM</li>
-                            <li><span className="meta-icon">??</span> The Blackfen</li>
-                            <li><span className="meta-icon">??</span> Sera, Malik, Bram, Lyra</li>
-                        </ul>
-                    </article>
-                </div>
+                                <ul className="session-meta">
+                                    <li>
+                                        <span className="meta-icon">📅</span>
+                                        {formatSessionDate(session.scheduledAt)}
+                                    </li>
+                                    <li>
+                                        <span className="meta-icon">🎭</span>
+                                        {session.gameMasterName}
+                                    </li>
+                                    <li>
+                                        <span className="meta-icon">⚔️</span>
+                                        {session.currentPartySize}
+                                        {session.maxPartySize ? `/${session.maxPartySize}` : ''} adventurers
+                                    </li>
+                                </ul>
+                            </article>
+                        ))}
+                    </div>
+                )}
             </section>
         </div>
     );

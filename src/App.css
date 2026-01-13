@@ -365,7 +365,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6rem 0 8rem; /* push below navbar */
+    padding: 3rem 0 4rem;
     background: radial-gradient(1000px 500px at 50% 10%, rgba(210,183,109,0.03), transparent 20%),
                 rgba(0,0,0,0.3);
 }
@@ -477,7 +477,7 @@ body {
     }
 
     .hero-section {
-        padding: 4rem 0 6rem;
+        padding: 2rem 0 3rem;
     }
 }
 
@@ -561,12 +561,46 @@ body {
     margin-bottom: 2.5rem;
 }
 
+.sessions-section .loading-state,
+.sessions-section .empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+}
+
+.sessions-section .empty-state p {
+    margin: 0;
+}
+
 .sessions-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
     max-width: 1100px;
     margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* When there's only 1 card, center it and limit width */
+.sessions-grid:has(> .session-card:only-child) {
+    max-width: 500px;
+}
+
+/* When there are exactly 2 cards, center them */
+.sessions-grid:has(> .session-card:nth-child(2):last-child) {
+    max-width: 800px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* Fallback for browsers that don't support :has() */
+@supports not selector(:has(*)) {
+    .sessions-grid {
+        justify-content: center;
+    }
+
+    .session-card {
+        max-width: 380px;
+    }
 }
 
 .session-card {
@@ -575,10 +609,23 @@ body {
     border-radius: 8px;
     padding: 1.75rem;
     text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.session-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .session-next {
     border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+}
+
+.session-next:hover {
+    border-color: var(--gold-hover);
 }
 
 .small-label {
@@ -738,17 +785,7 @@ body {
     background-color: rgba(210, 183, 109, 0.2) !important;
 }
 
-@media (max-width: 991px) {
-    .sessions-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
 @media (max-width: 600px) {
-    .sessions-grid {
-        grid-template-columns: 1fr;
-    }
-
     .hero-title {
         font-size: 2.5rem;
     }

@@ -99,6 +99,8 @@ export const dmSessionAPI = {
     completeSession: (id, rewards) =>
         api.post(`/api/dm/sessions/${id}/complete`, rewards),
     cancelSession: (id) => api.post(`/api/dm/sessions/${id}/cancel`),
+    removeAttendee: (sessionId, characterId) =>
+        api.delete(`/api/dm/sessions/${sessionId}/attendees/${characterId}`),
 };
 
 export default api;

@@ -50,9 +50,9 @@ function Sessions() {
     };
 
     const formatPartySize = (session) => {
-        const current = session.signedUpCount || session.signups?.length || 0;
-        if (session.maxPlayers) {
-            return `${current}/${session.maxPlayers} players`;
+        const current = session.currentPartySize || 0;
+        if (session.maxPartySize) {
+            return `${current}/${session.maxPartySize} players`;
         }
         return `${current} players`;
     };
@@ -130,7 +130,7 @@ function Sessions() {
                                         </div>
                                         <div className="session-detail">
                                             <span className="detail-label">Game Master</span>
-                                            <span className="detail-value">{session.dmName || session.dm?.username || 'TBD'}</span>
+                                            <span className="detail-value">{session.gameMasterName || 'TBD'}</span>
                                         </div>
                                         <div className="session-detail">
                                             <span className="detail-label">Party Size</span>

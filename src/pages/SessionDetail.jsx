@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { sessionAPI } from '../services/api';
+import { sessionAPI, dmSessionAPI } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import SessionSignUpModal from '../components/SessionSignUpModal';
 import './SessionDetail.css';
@@ -27,6 +27,9 @@ function SessionDetail() {
     // Withdraw state
     const [showWithdrawConfirm, setShowWithdrawConfirm] = useState(false);
     const [withdrawing, setWithdrawing] = useState(false);
+
+    // Remove attendee state (DM only)
+    const [removingCharacterId, setRemovingCharacterId] = useState(null);
 
     useEffect(() => {
         fetchSession();
@@ -76,21 +79,33 @@ function SessionDetail() {
     };
 
     const formatPartySize = () => {
-        const signups = session?.signups || [];
-        const current = signups.length;
-        if (session?.maxPlayers) {
-            return `${current}/${session.maxPlayers} players`;
+        const attendees = session?.attendees || [];
+        const current = attendees.length;
+        if (session?.maxPartySize) {
+            return `${current}/${session.maxPartySize} players`;
         }
         return `${current} players`;
     };
 
     const getMySignup = () => {
-        if (!user?.playerId || !session?.signups) return null;
-        return session.signups.find((s) => s.playerId === user.playerId);
+        if (!user?.username || !session?.attendees) return null;
+        return session.attendees.find((a) => a.playerName === user.username);
     };
 
     const handleSignUpSuccess = () => {
         fetchSession();
+    };
+
+    const handleRemoveAttendee = async (characterId) => {
+        try {
+            setRemovingCharacterId(characterId);
+            await dmSessionAPI.removeAttendee(id, characterId);
+            await fetchSession();
+        } catch (err) {
+            setError(err.response?.data?.message || 'Failed to remove attendee');
+        } finally {
+            setRemovingCharacterId(null);
+        }
     };
 
     if (loading) {
@@ -126,6 +141,10 @@ function SessionDetail() {
     const canSignUp = session?.status === 'Planned' && !mySignup;
     const canWithdraw = session?.status === 'Planned' && mySignup;
     const isCompleted = session?.status === 'Completed';
+    const isGameMaster = user?.playerId === session?.gameMasterId;
+    console.log('user.playerId:', user?.playerId, 'type:', typeof user?.playerId);
+    console.log('session.gameMasterId:', session?.gameMasterId, 'type:', typeof session?.gameMasterId);
+    console.log('isGameMaster:', isGameMaster);
 
     return (
         <div className="session-detail-page">
@@ -158,7 +177,7 @@ function SessionDetail() {
                         <div className="info-item">
                             <span className="info-label">Game Master</span>
                             <span className="info-value">
-                                {session?.dmName || session?.dm?.username || 'TBD'}
+                                {session?.gameMasterName || 'TBD'}
                             </span>
                         </div>
                         <div className="info-item">
@@ -167,21 +186,21 @@ function SessionDetail() {
                         </div>
                     </div>
 
-                    {isCompleted && (session?.goldAwarded > 0 || session?.xpAwarded > 0) && (
+                    {isCompleted && (session?.goldReward > 0 || session?.experienceReward > 0) && (
                         <div className="session-rewards">
                             <h3>Rewards</h3>
                             <div className="rewards-grid">
-                                {session.goldAwarded > 0 && (
+                                {session.goldReward > 0 && (
                                     <div className="reward-item">
                                         <span className="reward-value gold-value">
-                                            {session.goldAwarded}
+                                            {session.goldReward}
                                         </span>
                                         <span className="reward-label">Gold</span>
                                     </div>
                                 )}
-                                {session.xpAwarded > 0 && (
+                                {session.experienceReward > 0 && (
                                     <div className="reward-item">
-                                        <span className="reward-value">{session.xpAwarded}</span>
+                                        <span className="reward-value">{session.experienceReward}</span>
                                         <span className="reward-label">XP</span>
                                     </div>
                                 )}
@@ -209,20 +228,34 @@ function SessionDetail() {
 
                     <div className="attendees-section">
                         <h2>Adventurers</h2>
-                        {(!session?.signups || session.signups.length === 0) ? (
+                        {(!session?.attendees || session.attendees.length === 0) ? (
                             <div className="empty-attendees">
                                 <p>No adventurers signed up yet</p>
                             </div>
                         ) : (
                             <div className="attendees-list">
-                                {session.signups.map((signup) => (
-                                    <div key={signup.characterId} className="attendee-item">
-                                        <span className="attendee-character">
-                                            {signup.characterName}
-                                        </span>
-                                        <span className="attendee-player">
-                                            {signup.playerName}
-                                        </span>
+                                <div className="attendees-header">
+                                    <span className="header-character">Character</span>
+                                    <span className="header-player">Player</span>
+                                    {isGameMaster && session.status === 'Planned' && (
+                                        <span className="header-actions">Actions</span>
+                                    )}
+                                </div>
+                                {session.attendees.map((attendee) => (
+                                    <div key={attendee.characterId} className="attendee-item">
+                                        <span className="attendee-character">{attendee.characterName}</span>
+                                        <span className="attendee-player">{attendee.playerName}</span>
+                                        {isGameMaster && session.status === 'Planned' && (
+                                            <div className="attendee-actions">
+                                                <button
+                                                    className="btn btn-danger btn-small"
+                                                    onClick={() => handleRemoveAttendee(attendee.characterId)}
+                                                    disabled={removingCharacterId === attendee.characterId}
+                                                >
+                                                    {removingCharacterId === attendee.characterId ? 'Removing...' : 'Remove'}
+                                                </button>
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
                             </div>
